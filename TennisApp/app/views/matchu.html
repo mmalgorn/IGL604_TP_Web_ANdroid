@@ -1,0 +1,60 @@
+<div class="container">
+  <h1>Match {{match.joueur1.Nom}} VS {{match.joueur2.Nom}}</h1>
+  <h2>Details du match</h2>
+  <table ng-click="changeView(match)" class="table table-striped">
+    <tbody>
+      <tr>
+        <th ng-bind="match.joueur1.Nom"></p>
+          <th ng-bind="match.joueur1.Prenom"/>
+          <th>Constestations :  {{match.contestation[0]}}</th>
+          <th>
+            <img ng-if="match.service == false" src="images/tennis_0.png">
+            <img ng-if="match.service == true" src="images/tennis_1.png">
+          </th>
+          <th>
+            <ul class="list-inline">
+              <li ng-repeat="sc in match.manche[0]  track by $index ">
+                {{sc}}
+              </li>
+            </ul>
+          </th>
+          <th ng-bind="match.score[0]"/>
+
+        </tr>
+        <tr>
+          <th ng-bind="match.joueur2.Nom"/>
+          <th ng-bind="match.joueur2.Prenom"/>
+          <th>Constestations :  {{match.contestation[0]}}</th>
+          <th>
+            <img ng-if="match.service == true" src="images/tennis_0.png">
+            <img ng-if="match.service == false" src="images/tennis_1.png">
+          </th>
+          <th>
+
+            <ul class="list-inline">
+              <li ng-repeat="sc in match.manche[1]  track by $index">
+                {{sc}}
+              </li>
+            </ul>
+          </th>
+          <th ng-bind="match.score[1]"/>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Parier sur le match</h2>
+    <form class = "simple*form"  >
+      <label> Joueur :
+        <select class="form-control" ng-model="joueur" ng-change="verifForm()">
+          <option ng-value="0">{{match.joueur1.Nom}} {{match.joueur1.Prenom}}</option>
+          <option ng-value="2">Nul</option>
+          <option ng-value="1">{{match.joueur2.Nom}} {{match.joueur2.Prenom}}</option>
+        </select>
+      </label>
+      <label> Somme :
+        <input type="number" ng-change="verifForm()"  ng-model="price"  pattern="[0-9]+(\.[0-9][0-9]?)?"/>
+      </label>
+      <button type="button" class="btn btn-primary" ng-disabled="disableButton"  ng-click="parier()" >Parier</button>
+
+    </form>
+  </div>

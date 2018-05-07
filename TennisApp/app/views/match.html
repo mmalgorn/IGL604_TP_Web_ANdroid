@@ -1,0 +1,54 @@
+
+
+<div class="container" id="top">
+  <button ng-click="loadMatch()" class="btn btn-info pull-right">Actualiser</button>
+  <h1> Matchs </h1>
+  <div ng-if="error">{{error}}</div>
+  <div  ng-repeat="match in matchs" >
+    <label>Suivre ce match
+       <input id="{{ match.id }}" ng-click="uncheck(match)"
+        ng-checked="match.id == matchSelected.id" class="styled" type="checkbox"
+          name="{{ match.id }}" value="{{ match }}" /></label>
+    <h4 class="pull-right"> {{match.chrono | secondsToDateTime |date:'HH:mm:ss'}}</h4>
+    <table ng-click="changeView(match)" class="table table-striped">
+      <tbody>
+        <tr>
+          <th ng-bind="match.joueur1.Nom"></p>
+            <th ng-bind="match.joueur1.Prenom"/>
+            <th>Constestations :  {{match.contestation[0]}}</th>
+            <th>
+              <img class = "pull-right" ng-if="match.service == false" width="25" height="25" src="images/tennis_0.png">
+              <img class = "pull-right" ng-if="match.service == true" width="25" height="25" src="images/tennis_1.png">
+            </th>
+            <th>
+              <ul class="list-inline">
+                <li ng-repeat="sc in match.manche[0]  track by $index ">
+                  {{sc}}
+                </li>
+              </ul>
+            </th>
+            <th ng-bind="match.score[0]"/>
+
+          </tr>
+          <tr>
+            <th ng-bind="match.joueur2.Nom"/>
+              <th ng-bind="match.joueur2.Prenom"/>
+              <th>Constestations :  {{match.contestation[1]}}</th>
+              <th>
+                <img class = "pull-right" ng-if="match.service == true" width="25" height="25" src="images/tennis_0.png">
+                <img class = "pull-right" ng-if="match.service == false" width="25" height="25" src="images/tennis_1.png">
+              </th>
+              <th>
+
+                <ul class="list-inline">
+                  <li ng-repeat="sc in match.manche[1]  track by $index">
+                    {{sc}}
+                  </li>
+                </ul>
+              </th>
+              <th ng-bind="match.score[1]"/>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
